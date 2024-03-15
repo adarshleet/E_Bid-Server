@@ -19,6 +19,13 @@ const items = new mongoose.Schema({
     },
     bidEndDate:{
         type:Date
+    },
+    image:{
+        type:Object
+    },
+    status:{
+        type:String,
+        default:'pending'
     }
 })
 
