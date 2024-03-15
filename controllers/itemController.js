@@ -7,7 +7,7 @@ import schedule from 'node-schedule'
 //add item for bidding
 export const addItem = async(req,res)=>{
     try {
-        const {itemName,bidStartPrice,bidStartDate,bidEndDate} = req.body
+        const {itemName,bidStartPrice,bidStartDate,bidEndDate,type} = req.body
         const image = req.file
 
         const {token} = req.headers
@@ -19,7 +19,8 @@ export const addItem = async(req,res)=>{
             bidStartDate,
             bidEndDate,
             user:decoded.id,
-            image
+            image,
+            type
         })
 
         const item = await newItem.save()
@@ -94,25 +95,3 @@ export const singleItem = async(req,res)=>{
     }
 }
 
-
-//route for schedule checking
-export const fixTime = async(req,res)=>{
-    try {
-        console.log(new Date(),new Date(2024, 2, 15, 20, 20, 0))
-       
-        // const startDateJob = schedule.scheduleJob(new Date(2024, 2, 15, 20, -7, 0), async function(){
-        //     await Items.findByIdAndUpdate('65f4347704d8921077a74721',{$set:{status:'started'}})
-        //     console.log('starting worked')
-        // });
-
-        // const endDateJob = schedule.scheduleJob(new Date(2024, 2, 15, 20, 10, 0), async function(){
-        //     await Items.findByIdAndUpdate('65f4347704d8921077a74721',{$set:{status:'Ended'}})
-        //     console.log('ending worked')
-        // });
-        res.status(200).json('time set')
-
-    } catch (error) {
-        console.log(error)
-        res.status(500).json({error:'internal server error'})
-    }
-}

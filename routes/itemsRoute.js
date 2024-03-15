@@ -1,5 +1,5 @@
 import express from 'express'
-import { addItem, fixTime, itemsToShow, singleItem, userItems } from '../controllers/itemController.js'
+import { addItem, itemsToShow, singleItem, userItems } from '../controllers/itemController.js'
 import { multerMid } from '../middlewares/multerMid.js'
 import { protect } from '../middlewares/userAuth.js'
 
@@ -15,6 +15,3 @@ itemsRoute.get('/itemsToShow',itemsToShow)
 
 itemsRoute.get('/singleItem',singleItem)
 
-
-//for time checking
-itemsRoute.get('/setTime',fixTime)

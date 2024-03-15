@@ -1,10 +1,13 @@
 import express from 'express'
-import { createBid, userBid, userBids } from '../controllers/bidController.js'
+import { allBids, createBid, userBid, userBids } from '../controllers/bidController.js'
+import { protect } from '../middlewares/userAuth.js'
 
 export const bidRoute = express.Router()
 
-bidRoute.post('/createBid',createBid)
+bidRoute.post('/createBid',protect,createBid)
 
-bidRoute.get('/userBids',userBids)
+bidRoute.get('/userBids',protect,userBids)
 
-bidRoute.get('/userBid',userBid)
+bidRoute.get('/userBid',protect,userBid)
+
+bidRoute.get('/allBids',allBids)

@@ -25,7 +25,7 @@ export const createBid = async (req, res) => {
             { $match: { item: new Types.ObjectId(item) } },
             { $group: { _id: null, maxPrice: { $max: '$bidAmount' } } }
         ])
-        const maxPrice = result[0].maxPrice
+        const maxPrice = result[0]?.maxPrice
 
         if(bidAmount <= maxPrice){
             return res.status(409).json({ error: 'Please Bid an amount higher than top bid' })
@@ -75,6 +75,20 @@ export const userBid = async(req,res)=>{
         const bid = await Bid.findOne({user:decoded.id,item:id})
         
         res.status(200).json(bid)
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: 'internal server error' })
+    }
+}
+
+
+//all bids of the product
+export const allBids = async(req,res)=>{
+    try {
+        const id = req.query.id
+        const bids = await Bid.find({item:id}).populate('item').populate('user')
+        res.status(200).json(bids)
 
     } catch (error) {
         console.log(error)
