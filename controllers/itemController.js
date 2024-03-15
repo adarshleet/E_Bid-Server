@@ -47,7 +47,6 @@ export const addItem = async(req,res)=>{
 //user added items
 export const userItems = async(req,res)=>{
     try {
-        console.log('in profile',new Date(),new Date(2024, 2, 15, 20, 10, 0))
         
         const {token} = req.headers
         const decoded = jwt.verify(token, process.env.JWT_KEY)
@@ -87,7 +86,7 @@ export const itemsToShow =  async(req,res)=>{
 export const singleItem = async(req,res)=>{
     try {
         const id = req.query.id
-        const item = await Items.findById(id)
+        const item = await Items.findById(id).populate('user')
         res.status(200).json(item)
     } catch (error) {
         console.log(error)

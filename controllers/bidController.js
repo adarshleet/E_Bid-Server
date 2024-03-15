@@ -87,7 +87,7 @@ export const userBid = async(req,res)=>{
 export const allBids = async(req,res)=>{
     try {
         const id = req.query.id
-        const bids = await Bid.find({item:id}).populate('item').populate('user')
+        const bids = await Bid.find({item:id}).populate('item').populate('user').sort({bidAmount:-1})
         res.status(200).json(bids)
 
     } catch (error) {

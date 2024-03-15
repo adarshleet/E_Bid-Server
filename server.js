@@ -21,7 +21,7 @@ dbConnect();
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:5000', // Replace with the origin from which requests are allowed
+    origin: process.env.CORS_URL, // Replace with the origin from which requests are allowed
     credentials: true // Allow credentials
 }));
 

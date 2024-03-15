@@ -44,7 +44,7 @@ export const login = async(req,res)=>{
         }
 
         const token =  createJwt(userFound._id,'user')
-        res.status(200).json({message:'Login successfull',token})
+        res.status(200).json({message:'Login successfull',token,user:userFound._id})
 
     } catch (error) {
         console.log(error)
