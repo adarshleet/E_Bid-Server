@@ -24,12 +24,15 @@ export const addItem = async(req,res)=>{
         })
 
         const item = await newItem.save()
-        
-        const startDateJob = schedule.scheduleJob(new Date(bidStartDate), async function(){
+        const newDate = new Date()
+        const startTime = `${newDate.getSeconds()} ${newDate.getMinutes()+2} ${newDate.getHours()} ${newDate.getDate()} ${newDate.getMonth() + 1} *`
+        const endtTime = `${newDate.getSeconds()} ${newDate.getMinutes()+5} ${newDate.getHours()} ${newDate.getDate()} ${newDate.getMonth() + 1} *`
+        console.log(startTime,endtTime)
+        const startDateJob = schedule.scheduleJob(startTime, async function(){
             await Items.findByIdAndUpdate(item._id,{$set:{status:'started'}})
         });
 
-        const endDateJob = schedule.scheduleJob(new Date(bidEndDate), async function(){
+        const endDateJob = schedule.scheduleJob(endtTime, async function(){
             await Items.findByIdAndUpdate(item._id,{$set:{status:'Ended'}})
         });
         
