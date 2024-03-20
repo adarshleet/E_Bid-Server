@@ -24,9 +24,10 @@ export const addItem = async(req,res)=>{
         })
 
         const item = await newItem.save()
-        const newDate = new Date()
-        const startTime = `${newDate.getSeconds()} ${newDate.getMinutes()+2} ${newDate.getHours()} ${newDate.getDate()} ${newDate.getMonth() + 1} *`
-        const endtTime = `${newDate.getSeconds()} ${newDate.getMinutes()+5} ${newDate.getHours()} ${newDate.getDate()} ${newDate.getMonth() + 1} *`
+        const bidStartingDate = new Date(bidStartDate)
+        const bidEndingDate = new Date(bidEndDate)
+        const startTime = `0 0 0 ${bidStartingDate.getDate()} ${bidStartingDate.getMonth() + 1} *`
+        const endtTime = `0 0 0 ${bidEndingDate.getDate()} ${bidEndingDate.getMonth() + 1} *`
         console.log(startTime,endtTime)
         const startDateJob = schedule.scheduleJob(startTime, async function(){
             await Items.findByIdAndUpdate(item._id,{$set:{status:'started'}})
